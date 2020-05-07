@@ -1,0 +1,30 @@
+class Solution {
+    public int longestValidParentheses(String s) {
+     Stack<Integer> stack = new Stack<Integer>();
+		stack.push(-1);
+		int max = 0;
+
+		for (int i = 0; i < s.length(); i++) {
+			int peek_value = stack.peek();
+			if (peek_value == -1) {
+				peek_value = i;
+			} else {
+				peek_value = stack.peek();
+			}
+			if (s.charAt(peek_value) == '(' && s.charAt(i) == ')') {
+				if (stack.peek() == -1) {
+					stack.push(i);
+				} else {
+					stack.pop();
+
+					max = Math.max(i - stack.peek(), max);
+				}
+//				System.out.println(max);
+			} else {
+				stack.push(i);
+			}
+		}
+
+		return max;
+    }
+}
